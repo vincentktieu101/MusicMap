@@ -12,3 +12,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.brand {
+  padding: 10px;
+  position: fixed;
+  top: 0px;
+  left: 15px;
+  z-index: 99;
+  color: white;
+}
+
+.app-title {
+  font-size: 36px;
+}
+
+.custom-tooltip {
+  background-color: white;
+  padding: 4px;
+  border-radius: 5px;
+}
