@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScatterChart, Scatter, Cell, Tooltip, CartesianGrid, XAxis, YAxis } from 'recharts';
 import genre_data from "./everynoise-scrape";
 // import genre_data from "./test"
 
 function App() {
-  const keys = Object.keys(genre_data);
-  const data = Object.values(genre_data);
-  for (let i=0; i < data.length; i++) {
-    data[i].genre = keys[i];
-  }
+  const [tooltipContent, setTooltipContent] = useState("");
+
+  let keys = Object.keys(genre_data);
+  let data = Object.values(genre_data);
 
   // console.log(data);
+
+  let cells = []
+  for (let i = 0; i < data.length; i++) {
+    cells.push(
+      <Cell 
+        onMouseOver={() => setTooltipContent(keys[i])} 
+        // onClick={() => playGenre(data[i].preview_urls[0])}
+        key={`cell-${data[i].genre}`} 
+        fill={data[i].color} 
+      />
+    )
+  }
 
   function previewGenre(value) {
 
@@ -20,32 +31,37 @@ function App() {
     window.open("https://p.scdn.co/mp3-preview/" + value);
   }
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip" style={{backgroundColor: "white"}}>
+          <p className="desc">{tooltipContent}</p>
+        </div>
+      );
+    }
+  
+    return null;
+  };
+
   return (
     <ScatterChart
-          width={1600}
-          height={1600}
-          margin={{
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 20,
-          }}
-        >
-          <CartesianGrid vertical={false} horizontal={false} />
-          <XAxis hide={true} type="number" dataKey="left" />
-          <YAxis hide={true} type="number" dataKey="top" />
-          {/* <Tooltip content={<CustomTooltip />} /> */}
-          <Scatter name="data" data={data} fill="#8884d8">
-            {data.map((entry, index) => (
-              <Cell 
-                onMouseOver={() => previewGenre(data[index].preview_urls[0])} 
-                onClick={() => playGenre(data[index].preview_urls[0])}
-                key={`cell-${index}`} 
-                fill={data[index].color} 
-              />
-            ))}
-          </Scatter>
-        </ScatterChart>
+      width={1600}
+      height={1600}
+      margin={{
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
+      }}
+    >
+      <CartesianGrid vertical={false} horizontal={false} />
+      <XAxis hide={true} type="number" dataKey="left" />
+      <YAxis hide={true} type="number" dataKey="top" />
+      <Tooltip content={<CustomTooltip />} />
+      <Scatter name="data" data={data} fill="#8884d8">
+        {cells}
+      </Scatter>
+    </ScatterChart>
   );
 }
 
