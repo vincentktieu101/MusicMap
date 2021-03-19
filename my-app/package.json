@@ -17,7 +17,7 @@
     "recharts": "^2.0.8",
     "web-vitals": "^1.0.1"
   },
-  "homepage": "https://vincentktieu.github.io/every-sound",
+  "homepage": "https://vincentktieu101.github.io/EverySound",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
