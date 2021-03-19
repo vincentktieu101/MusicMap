@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/EverySound/static/css/main.5a09bcac.chunk.css",
-    "main.js": "/EverySound/static/js/main.89fd3e90.chunk.js",
-    "main.js.map": "/EverySound/static/js/main.89fd3e90.chunk.js.map",
+    "main.css": "/EverySound/static/css/main.6da7d938.chunk.css",
+    "main.js": "/EverySound/static/js/main.6fd93fa5.chunk.js",
+    "main.js.map": "/EverySound/static/js/main.6fd93fa5.chunk.js.map",
     "runtime-main.js": "/EverySound/static/js/runtime-main.11dabf3a.js",
     "runtime-main.js.map": "/EverySound/static/js/runtime-main.11dabf3a.js.map",
-    "static/js/2.49070122.chunk.js": "/EverySound/static/js/2.49070122.chunk.js",
-    "static/js/2.49070122.chunk.js.map": "/EverySound/static/js/2.49070122.chunk.js.map",
+    "static/js/2.08e6808c.chunk.js": "/EverySound/static/js/2.08e6808c.chunk.js",
+    "static/js/2.08e6808c.chunk.js.map": "/EverySound/static/js/2.08e6808c.chunk.js.map",
     "index.html": "/EverySound/index.html",
-    "static/css/main.5a09bcac.chunk.css.map": "/EverySound/static/css/main.5a09bcac.chunk.css.map",
-    "static/js/2.49070122.chunk.js.LICENSE.txt": "/EverySound/static/js/2.49070122.chunk.js.LICENSE.txt"
+    "static/css/main.6da7d938.chunk.css.map": "/EverySound/static/css/main.6da7d938.chunk.css.map",
+    "static/js/2.08e6808c.chunk.js.LICENSE.txt": "/EverySound/static/js/2.08e6808c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.11dabf3a.js",
-    "static/js/2.49070122.chunk.js",
-    "static/css/main.5a09bcac.chunk.css",
-    "static/js/main.89fd3e90.chunk.js"
+    "static/js/2.08e6808c.chunk.js",
+    "static/css/main.6da7d938.chunk.css",
+    "static/js/main.6fd93fa5.chunk.js"
   ]
 }
