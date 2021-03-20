@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
-import MusicMap from "./MusicMap";
+import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+
+import MusicMap from "./MusicMap";
+import About from "./About";
 import initialData from "./scrapes/db.json";
 
 export default function App() {
   const audioPlayer = useRef();
+  const [aboutToggle, setAboutToggle] = useState(false);
   const [audioPlayerKey, setAudioPlayerKey] = useState(0);
   const [audioPlayerUrl, setAudioPlayerUrl] = useState("");
   const [audioPlayerGenre, setAudioPlayerGenre] = useState("");
@@ -33,21 +38,38 @@ export default function App() {
   }
 
   return (
-    <div>
+    <>
+      <About aboutToggle={aboutToggle} setAboutToggle={setAboutToggle} />
       <div className="brand">
         <div className="app-title">
           MusicMap
-          <IconButton onClick={() => setData(getNewMusicMap(initialData))}>
-            <RefreshIcon style={{ color: "white" }} />
-          </IconButton>
+          <Tooltip
+            title={<div className="custom-tooltip-black">Refresh Map</div>}
+          >
+            <IconButton
+              onClick={(e) => {
+                e.preventDefault();
+                setData(getNewMusicMap(initialData));
+              }}
+            >
+              <RefreshIcon style={{ color: "white" }} />
+            </IconButton>
+          </Tooltip>
         </div>
-        <div>by Vincent Tieu</div>
+        by Vincent Tieu
+        <Tooltip
+          title={<div className="custom-tooltip-black">Read Details</div>}
+        >
+          <IconButton
+            onClick={(e) => {
+              e.preventDefault();
+              setAboutToggle(!aboutToggle);
+            }}
+          >
+            <VisibilityIcon style={{ color: "white" }} />
+          </IconButton>
+        </Tooltip>
       </div>
-      <MusicMap
-        data={data}
-        audioPlayerUrl={audioPlayerUrl}
-        togglePlay={togglePlay}
-      />
       <div className="audio-player">
         {audioPlayerGenre !== "" ? (
           <AudioPlayer
@@ -60,7 +82,12 @@ export default function App() {
           <div>Drag to Navigate and Click to Listen!</div>
         )}
       </div>
-    </div>
+      <MusicMap
+        data={data}
+        audioPlayerUrl={audioPlayerUrl}
+        togglePlay={togglePlay}
+      />
+    </>
   );
 }
 
@@ -68,7 +95,6 @@ const AudioPlayer = forwardRef((props, ref) => {
   const { audioPlayerKey, audioPlayerGenre, audioPlayerUrl } = props;
   useEffect(() => {
     if (ref) {
-      console.log(`genre: ${audioPlayerGenre}`);
       ref.current.play();
       ref.current.volume = 0.15;
     }
@@ -86,10 +112,10 @@ const AudioPlayer = forwardRef((props, ref) => {
 });
 
 function getNewMusicMap(arr) {
+  var n = arr.length;
   var result = new Array(n),
     len = arr.length,
-    taken = new Array(len),
-    n = arr.length;
+    taken = new Array(len);
   if (n > len)
     throw new RangeError("getRandom: more elements taken than available");
   while (n--) {

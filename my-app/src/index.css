@@ -6,6 +6,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #272727;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+.font-size-64 {
+  font-size: 64px;
+}
+
+.hidden {
+  display: none;
+}
+
+a {
+  text-decoration: underline;
+  color: white;
 }
 
 ::-webkit-scrollbar {
@@ -22,8 +37,57 @@ code {
   position: fixed;
   top: 0px;
   left: 15px;
-  z-index: 99;
+  z-index: 1;
   color: white;
+}
+
+.audio-player {
+  padding: 10px;
+  position: fixed;
+  z-index: 1;
+  color: white;
+  text-align: center;
+}
+
+@media (max-width: 2000px) {
+  .audio-player {
+    top: 10px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .audio-player {
+    top: auto;
+    bottom: 10px;
+    left: 15px;
+  }
+}
+
+.about-background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  background-color: #272727;
+  opacity: 0.6;
+}
+
+.about {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  color: white;
+  opacity: none;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.aboutToggle {
+  z-index: 3;
 }
 
 .app-title {
@@ -36,16 +100,18 @@ code {
   border-radius: 5px;
 }
 
-.audio-player {
-  padding: 10px;
-  position: fixed;
-  top: 10px;
-  right: 15px;
-  z-index: 99;
-  color: white;
-  text-align: center;
+.custom-tooltip-black {
+  padding: 4px;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.border {
-  border: 1px solid white;
+.width-500-less {
+  width: 500px;
+}
+
+@media (max-width: 800px) {
+  .width-500-less {
+    width: 330px;
+  }
 }

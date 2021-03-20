@@ -29,6 +29,7 @@ export default function MusicMap(props) {
       <Cell
         onMouseOver={() => setTooltipContent(data[i].genre)}
         onClick={() => togglePlay(data[i].preview_url, data[i].genre)}
+        onTouchStart={() => togglePlay(data[i].preview_url, data[i].genre)}
         key={`cell-${data[i].genre}`}
         fill={data[i].color}
         stroke={data[i].color}
@@ -36,7 +37,7 @@ export default function MusicMap(props) {
           audioPlayerUrl ===
           `https://p.scdn.co/mp3-preview/${data[i].preview_url}`
             ? 25
-            : 0
+            : 8
         }
       />
     );
@@ -45,8 +46,8 @@ export default function MusicMap(props) {
   return (
     <MapInteractionCSS>
       <ScatterChart
-        width={2400}
-        height={2400}
+        width={3200}
+        height={2000}
         margin={{
           top: 20,
           right: 20,
