@@ -25,7 +25,7 @@ export default function About(props) {
             MusicMap is a visual way to explore 5000+ genres! Scroll to zoom and
             click to drag across the map. Once you're ready, select a genre and
             listen to a 30 second sample. Refreshing the map repicks 400 genres
-            of the 5000+. Shuffle picks a random song as long as it's toggled.
+            of the 5000+. Shuffle queues a random song for as long as it's toggled.
           </div>
           <br />
           <br />
@@ -41,12 +41,12 @@ export default function About(props) {
           <br />
           <div>
             When you find a genre you really like, you can lookup "The Sound of
-            {" <insert-genre-here>"}" on Spotify, where there's an awesome playlist ready for you.
-            To listen to all the genres at once, checkout{" "}
+            {" <insert-genre-here>"} on Spotify, where there's an awesome playlist ready for you.
+            To listen to all the genres at once, click{" "}
             <a 
               href="https://open.spotify.com/playlist/69fEt9DN5r4JQATi52sRtq"
               target="_blank">
-              https://open.spotify.com/playlist/69fEt9DN5r4JQATi52sRtq.
+              here.
             </a>
           </div>
           <br />
@@ -60,6 +60,8 @@ export default function About(props) {
             This app was designed primarily for desktop but also works well on
             mobile :)
           </div>
+          <br/>
+          <br/>
         </div>
       </div>
     </div>

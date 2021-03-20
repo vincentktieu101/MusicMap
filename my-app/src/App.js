@@ -49,7 +49,7 @@ export default function App() {
   return (
     <>
       <About aboutToggle={aboutToggle} setAboutToggle={setAboutToggle} />
-      <div className="brand">
+      <div className={aboutToggle ? "brand hidden" : "brand"}>
         <div className="app-title">
           MusicMap
           <Tooltip
@@ -79,7 +79,7 @@ export default function App() {
           </IconButton>
         </Tooltip>
       </div>
-      <div className="audio-player">
+      <div className={aboutToggle ? "audio-player hidden" : "audio-player"}>
         {audioPlayerGenre !== "" ? (
           <div>
             <AudioPlayer
@@ -90,7 +90,7 @@ export default function App() {
               checkOnShuffle={checkOnShuffle}
             />
             <Tooltip
-              title={<div className="custom-tooltip-black">Shuffle?</div>}
+              title={<div className="custom-tooltip-black">Shuffle</div>}
             >
               <IconButton
                 onClick={(e) => {
