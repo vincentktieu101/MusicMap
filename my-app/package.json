@@ -1,9 +1,11 @@
 {
   "name": "my-app",
+  "homepage": "https://vincentktieu101.github.io/MusicMap",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -17,14 +19,14 @@
     "recharts": "^2.0.8",
     "web-vitals": "^1.0.1"
   },
-  "homepage": "https://vincentktieu101.github.io/MusicMap",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prettier": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx,ts,tsx,css,scss,md}'"
   },
   "eslintConfig": {
     "extends": [
