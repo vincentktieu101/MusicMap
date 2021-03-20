@@ -20,3 +20,5 @@ https://everynoise.com/.
 
 This app was designed primarily for desktop but also works well on
 mobile :)
+
+<img width="1440" alt="Screen Shot 2021-03-20 at 2 16 11 AM" src="https://user-images.githubusercontent.com/46038043/111865096-484f9300-8922-11eb-9eaf-5c27d3fc5db1.png">
