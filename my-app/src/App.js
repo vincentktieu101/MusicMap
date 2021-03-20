@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, forwardRef } from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import VisibilityIcon from "@material-ui/icons/Visibility";
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 import MusicMap from "./MusicMap";
 import About from "./About";
@@ -66,7 +66,7 @@ export default function App() {
               setAboutToggle(!aboutToggle);
             }}
           >
-            <VisibilityIcon style={{ color: "white" }} />
+            <MenuBookIcon fontSize="small" style={{ color: "white" }} />
           </IconButton>
         </Tooltip>
       </div>
@@ -102,7 +102,7 @@ const AudioPlayer = forwardRef((props, ref) => {
 
   return (
     <div>
-      <div>Genre Playing: {audioPlayerGenre}</div>
+      <div>Genre Playing: {printReadableString(audioPlayerGenre)}</div>
       <br />
       <audio ref={ref} key={audioPlayerKey} controls>
         <source src={audioPlayerUrl} />
@@ -124,4 +124,13 @@ function getNewMusicMap(arr) {
     taken[x] = --len in taken ? taken[len] : len;
   }
   return result;
+}
+
+function printReadableString(str) {
+  const words = str.split(" ");
+  const result = words.map((word) => { 
+    return word[0].toUpperCase() + word.substring(1); 
+  }).join(" ");
+
+  return result
 }

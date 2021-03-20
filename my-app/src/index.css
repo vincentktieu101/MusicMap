@@ -23,10 +23,6 @@ a {
   color: white;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -84,6 +80,7 @@ code {
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
+  overflow-y: auto;
 }
 
 .aboutToggle {

@@ -5,8 +5,10 @@ export default function About(props) {
       <div className="about-background" />
       <div
         className="about"
-        onClick={() => {
-          setAboutToggle(!aboutToggle);
+        onClick={(e) => {
+          if (!e.target.href) {
+            setAboutToggle(false);
+          }
         }}
       >
         <div className="font-size-64">MusicMap</div>
@@ -30,7 +32,7 @@ export default function About(props) {
           <div>
             Generally, the type of genres are organized by color and location.
             Blue genres are typically instrumentals. Pink genres describe
-            electronic music/EDM. Orange genres are mainly Rock 'n' Roll. Red
+            electronic music/EDM. Orange genres are mainly rock. Red
             genres are metal. Green and Yellow genres describe everything from
             indie to pop. Genres closer together sound similar while genres
             further away sound less similar.
@@ -39,12 +41,18 @@ export default function About(props) {
           <br />
           <div>
             When you find a genre you really like, you can lookup "The Sound of
-            ______" on Spotify, where there's an awesome playlist ready for you.
+            {" <insert-genre-here>"}" on Spotify, where there's an awesome playlist ready for you.
+            To listen to all the genres at once, checkout{" "}
+            <a 
+              href="https://open.spotify.com/playlist/69fEt9DN5r4JQATi52sRtq"
+              target="_blank">
+              https://open.spotify.com/playlist/69fEt9DN5r4JQATi52sRtq.
+            </a>
           </div>
           <br />
           <br />
           <div>
-            MusicMap is built in ReactJS, Recharts, and Material-UI. The data
+            MusicMap is built in ReactJS, Material-UI, Recharts, and React-Map-Interaction. The data
             was gathered by using a scrapping tool on{" "}
             <a href="https://everynoise.com/" target="_blank">
               https://everynoise.com/.

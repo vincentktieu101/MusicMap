@@ -19,7 +19,7 @@ export default function MusicMap(props) {
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-      return <div className="custom-tooltip">{tooltipContent}</div>;
+      return <div className="custom-tooltip">{printReadableString(tooltipContent)}</div>;
     }
     return null;
   };
@@ -46,8 +46,8 @@ export default function MusicMap(props) {
   return (
     <MapInteractionCSS>
       <ScatterChart
-        width={3200}
-        height={2000}
+        width={2200}
+        height={1400}
         margin={{
           top: 20,
           right: 20,
@@ -65,4 +65,16 @@ export default function MusicMap(props) {
       </ScatterChart>
     </MapInteractionCSS>
   );
+}
+
+function printReadableString(str) {
+  if (str === "") {
+    return "";
+  }
+  const words = str.split(" ");
+  const result = words.map((word) => { 
+    return word[0].toUpperCase() + word.substring(1); 
+  }).join(" ");
+
+  return result
 }
