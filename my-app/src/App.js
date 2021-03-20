@@ -3,6 +3,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import RepeatIcon from '@material-ui/icons/Repeat';
 
 import MusicMap from "./MusicMap";
 import About from "./About";
@@ -15,6 +16,7 @@ export default function App() {
   const [audioPlayerUrl, setAudioPlayerUrl] = useState("");
   const [audioPlayerGenre, setAudioPlayerGenre] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [onShuffle, setOnShuffle] = useState(false);
   const [data, setData] = useState(initialData);
 
   useEffect(() => {
@@ -34,6 +36,13 @@ export default function App() {
       setAudioPlayerKey(audioPlayerKey + 1);
       setIsPlaying(true);
       setAudioPlayerGenre(genre);
+    }
+  }
+
+  function checkOnShuffle() {
+    if (onShuffle) {
+      const i = Math.floor(Math.random() * 400);
+      togglePlay(data[i].preview_url, data[i].genre);
     }
   }
 
@@ -72,12 +81,31 @@ export default function App() {
       </div>
       <div className="audio-player">
         {audioPlayerGenre !== "" ? (
-          <AudioPlayer
-            ref={audioPlayer}
-            audioPlayerKey={audioPlayerKey}
-            audioPlayerGenre={audioPlayerGenre}
-            audioPlayerUrl={audioPlayerUrl}
-          />
+          <div>
+            <AudioPlayer
+              ref={audioPlayer}
+              audioPlayerKey={audioPlayerKey}
+              audioPlayerGenre={audioPlayerGenre}
+              audioPlayerUrl={audioPlayerUrl}
+              checkOnShuffle={checkOnShuffle}
+            />
+            <Tooltip
+              title={<div className="custom-tooltip-black">Shuffle?</div>}
+            >
+              <IconButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (!onShuffle) {
+                    const i = Math.floor(Math.random() * 400);
+                    togglePlay(data[i].preview_url, data[i].genre);
+                  }
+                  setOnShuffle(!onShuffle);
+                }}
+              >
+                {onShuffle ? <RepeatIcon color="primary" /> : <RepeatIcon style={{ color: "white" }} />}
+              </IconButton>
+            </Tooltip>
+          </div>
         ) : (
           <div>Drag to Navigate and Click to Listen!</div>
         )}
@@ -92,7 +120,7 @@ export default function App() {
 }
 
 const AudioPlayer = forwardRef((props, ref) => {
-  const { audioPlayerKey, audioPlayerGenre, audioPlayerUrl } = props;
+  const { audioPlayerKey, audioPlayerGenre, audioPlayerUrl, checkOnShuffle } = props;
   useEffect(() => {
     if (ref) {
       ref.current.play();
@@ -104,7 +132,7 @@ const AudioPlayer = forwardRef((props, ref) => {
     <div>
       <div>Genre Playing: {printReadableString(audioPlayerGenre)}</div>
       <br />
-      <audio ref={ref} key={audioPlayerKey} controls>
+      <audio ref={ref} key={audioPlayerKey} controls onEnded={checkOnShuffle}>
         <source src={audioPlayerUrl} />
       </audio>
     </div>
@@ -112,8 +140,8 @@ const AudioPlayer = forwardRef((props, ref) => {
 });
 
 function getNewMusicMap(arr) {
-  var n = arr.length;
-  var result = new Array(n),
+  var n = arr.length,
+    result = new Array(n),
     len = arr.length,
     taken = new Array(len);
   if (n > len)

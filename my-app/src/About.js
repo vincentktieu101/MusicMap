@@ -25,7 +25,7 @@ export default function About(props) {
             MusicMap is a visual way to explore 5000+ genres! Scroll to zoom and
             click to drag across the map. Once you're ready, select a genre and
             listen to a 30 second sample. Refreshing the map repicks 400 genres
-            of the 5000+!
+            of the 5000+. Shuffle picks a random song as long as it's toggled.
           </div>
           <br />
           <br />
