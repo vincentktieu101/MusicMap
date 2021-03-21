@@ -23,7 +23,7 @@ export default function MusicMap(props) {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
-          {printReadableString(tooltipContent)}
+          {`Genre: ${printReadableString(tooltipContent)}`}
         </div>
       );
     }

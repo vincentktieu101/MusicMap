@@ -57,7 +57,7 @@ export default function App() {
       {aboutToggle && <About setAboutToggle={setAboutToggle} />}
       {!aboutToggle && (
         <div className="brand">
-          <div className="app-title">
+          <div className="font-size-48">
             MusicMap
             <Tooltip
               title={<div className="custom-tooltip-black">Refresh Map</div>}
@@ -90,7 +90,9 @@ export default function App() {
       <div className={aboutToggle ? "audio-player hidden" : "audio-player"}>
         {audioPlayerGenre !== "" ? (
           <div>
-            <div>Genre Playing: {printReadableString(audioPlayerGenre)}</div>
+            <div className="font-size-20">
+              Genre: {printReadableString(audioPlayerGenre)}
+            </div>
             <br />
             <AudioPlayer
               ref={audioPlayer}
@@ -160,7 +162,10 @@ export default function App() {
             </div>
           </div>
         ) : (
-          <div>Drag to Navigate and Click to Listen!</div>
+          <div className="font-size-32">
+            <div>Drag/Zoom to Navigate</div>
+            <div>Click to Listen!</div>
+          </div>
         )}
       </div>
       <MusicMap
@@ -187,7 +192,7 @@ const AudioPlayer = forwardRef((props, ref) => {
       }
       ref.current.volume = 0.15;
     }
-  }, [ref, audioPlayerGenre]);
+  }, [ref, audioPlayerGenre, onShuffle]);
 
   return (
     <audio ref={ref} key={audioPlayerKey} controls onEnded={checkOnShuffle}>

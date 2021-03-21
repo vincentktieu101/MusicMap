@@ -14,7 +14,11 @@ export default function About(props) {
         <div className="font-size-64">MusicMap</div>
         <div>by Vincent Tieu</div>
         <br />
-        <a href="https://github.com/vincentktieu101/MusicMap" target="_blank">
+        <a
+          href="https://github.com/vincentktieu101/MusicMap"
+          target="_blank"
+          rel="noreferrer"
+        >
           https://github.com/vincentktieu101/MusicMap
         </a>
         <div className="width-500-less">
@@ -42,11 +46,12 @@ export default function About(props) {
           <br />
           <div>
             When you find a genre you really like, you can lookup "The Sound of
-            {" <insert-genre-here>"} on Spotify, where there's an awesome
+            {" <insert-genre-here>"}" on Spotify, where there's an awesome
             playlist ready for you. To listen to all the genres at once, click{" "}
             <a
               href="https://open.spotify.com/playlist/69fEt9DN5r4JQATi52sRtq"
               target="_blank"
+              rel="noreferrer"
             >
               here.
             </a>
@@ -57,7 +62,7 @@ export default function About(props) {
             MusicMap is built in ReactJS, Material-UI, Recharts, and
             React-Map-Interaction. The data was gathered by using a scrapping
             tool on{" "}
-            <a href="https://everynoise.com/" target="_blank">
+            <a href="https://everynoise.com/" target="_blank" rel="noreferrer">
               https://everynoise.com/.
             </a>{" "}
             This app was designed primarily for desktop but also works well on
