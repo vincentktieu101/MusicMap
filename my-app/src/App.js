@@ -97,6 +97,7 @@ export default function App() {
               audioPlayerKey={audioPlayerKey}
               audioPlayerGenre={audioPlayerGenre}
               audioPlayerUrl={audioPlayerUrl}
+              onShuffle={onShuffle}
               checkOnShuffle={checkOnShuffle}
             />
             <br />
@@ -176,11 +177,12 @@ const AudioPlayer = forwardRef((props, ref) => {
     audioPlayerKey,
     audioPlayerGenre,
     audioPlayerUrl,
+    onShuffle,
     checkOnShuffle,
   } = props;
   useEffect(() => {
     if (ref) {
-      if (!isTouchDevice()) {
+      if (!isTouchDevice() || onShuffle) {
         ref.current.play();
       }
       ref.current.volume = 0.15;
