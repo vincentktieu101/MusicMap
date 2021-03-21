@@ -10,16 +10,22 @@ import {
 } from "recharts";
 import { MapInteractionCSS } from "react-map-interaction";
 
+const NODES_ON_MAP = 400;
+
 export default function MusicMap(props) {
   let { data, audioPlayerUrl, togglePlay } = props;
   const [tooltipContent, setTooltipContent] = useState("");
 
-  data = data.slice(0, 400);
+  data = data.slice(0, NODES_ON_MAP);
   let cells = [];
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-      return <div className="custom-tooltip">{printReadableString(tooltipContent)}</div>;
+      return (
+        <div className="custom-tooltip">
+          {printReadableString(tooltipContent)}
+        </div>
+      );
     }
     return null;
   };
@@ -28,8 +34,8 @@ export default function MusicMap(props) {
     cells.push(
       <Cell
         onMouseOver={() => setTooltipContent(data[i].genre)}
-        onClick={() => togglePlay(data[i].preview_url, data[i].genre)}
-        onTouchStart={() => togglePlay(data[i].preview_url, data[i].genre)}
+        onClick={() => togglePlay(i)}
+        onTouchStart={() => togglePlay(i)}
         key={`cell-${data[i].genre}`}
         fill={data[i].color}
         stroke={data[i].color}
@@ -72,9 +78,11 @@ function printReadableString(str) {
     return "";
   }
   const words = str.split(" ");
-  const result = words.map((word) => { 
-    return word[0].toUpperCase() + word.substring(1); 
-  }).join(" ");
+  const result = words
+    .map((word) => {
+      return word[0].toUpperCase() + word.substring(1);
+    })
+    .join(" ");
 
-  return result
+  return result;
 }

@@ -35,6 +35,10 @@ code {
   left: 15px;
   z-index: 1;
   color: white;
+
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .audio-player {
@@ -43,6 +47,10 @@ code {
   z-index: 1;
   color: white;
   text-align: center;
+}
+
+.audio-description > * {
+  margin: 5px 0;
 }
 
 @media (max-width: 2000px) {
@@ -81,10 +89,19 @@ code {
   align-items: center;
   padding-top: 20px;
   overflow-y: auto;
+
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
-.aboutToggle {
-  z-index: 3;
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .app-title {
