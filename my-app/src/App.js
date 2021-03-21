@@ -1,177 +1,103 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import RefreshIcon from "@material-ui/icons/Refresh";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
-import RepeatIcon from "@material-ui/icons/Repeat";
-import SearchIcon from "@material-ui/icons/Search";
-import FastForwardIcon from "@material-ui/icons/FastForward";
+import { useState, useEffect, useRef, forwardRef } from "react";
 
-import MusicMap from "./MusicMap";
-import About from "./About";
-import initialData from "./scrapes/db.json";
-
-const NODES_ON_MAP = 400;
+// import allGenresList from "./everynoise/db.json";
+import allGenresList from "./everynoise/all-genres-list.json";
+import { reduceNList, isTouchDevice } from "./utils";
+import About from "./components/About";
+import MainMenu from "./components/MainMenu";
+import AudioPlayerMenu from "./components/AudioPlayerMenu";
+import MusicMap from "./components/MusicMap";
 
 export default function App() {
-  const audioPlayer = useRef();
+  const NODES_ON_MAP = 400;
+  const [NGenresList, setNGenresList] = useState(
+    reduceNList(allGenresList, NODES_ON_MAP)
+  );
   const [aboutToggle, setAboutToggle] = useState(false);
-  const [audioPlayerKey, setAudioPlayerKey] = useState(0);
-  const [audioPlayerUrl, setAudioPlayerUrl] = useState("");
-  const [audioPlayerGenre, setAudioPlayerGenre] = useState("");
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [onShuffle, setOnShuffle] = useState(false);
-  const [data, setData] = useState(initialData);
+  const [activeGenreData, setActiveGenreData] = useState({
+    "key": 0,
+    "genre": "",
+    "url": "",
+    "color": "",
+    "top": 0,
+    "left": 0,
+  });
+  const [audioPlayer, setAudioPlayer] = useState({
+    "ref": useRef(),
+    "key": 0,
+    "isShuffle": false,
+  });
 
-  useEffect(() => {
-    setData(getNewMusicMap(initialData));
-  }, []);
-
-  function togglePlay(i) {
-    const url = data[i].preview_url;
-    const genre = data[i].genre;
-    if (audioPlayerUrl === `https://p.scdn.co/mp3-preview/${url}`) {
-      if (isPlaying) {
-        audioPlayer.current.pause();
+  function triggerAudioPlayer(i, shuffle=false) {
+    const url = NGenresList[i].preview_urls[0];
+    if (activeGenreData.url === `https://p.scdn.co/mp3-preview/${url}`) {
+      if (audioPlayer.ref.current.paused) {
+        audioPlayer.ref.current.play();
       } else {
-        audioPlayer.current.play();
+        audioPlayer.ref.current.pause();
       }
-      setIsPlaying(!isPlaying);
     } else {
-      setAudioPlayerUrl(`https://p.scdn.co/mp3-preview/${url}`);
-      setAudioPlayerKey(audioPlayerKey + 1);
-      setIsPlaying(true);
-      setAudioPlayerGenre(genre);
+      let newActiveGenreData = { ...NGenresList[i]};
+      newActiveGenreData.url = `https://p.scdn.co/mp3-preview/${url}`;
+      setActiveGenreData(newActiveGenreData);
+      let newAudioPlayer = { ...audioPlayer };
+      newAudioPlayer.key += 1;
+      if (shuffle === true) {
+        newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
+      }
+      setAudioPlayer(newAudioPlayer);
     }
   }
 
-  function checkOnShuffle() {
-    if (onShuffle) {
-      const i = Math.floor(Math.random() * NODES_ON_MAP);
-      togglePlay(i);
+  function refreshMap() {
+    setNGenresList(
+      reduceNList(allGenresList, NGenresList.length)
+    );
+  }
+
+  function triggerAudioPlayerOnEnded() {
+    if (audioPlayer.isShuffle) {
+      const i = Math.floor(Math.random() * NGenresList.length);
+      triggerAudioPlayer(i);
     }
   }
+
+  function shuffle() {
+    // let newAudioPlayer = {...audioPlayer};
+    // newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
+    // setAudioPlayer(newAudioPlayer);
+    if (!audioPlayer.isShuffle) {
+      const i = Math.floor(Math.random() * NGenresList.length);
+      triggerAudioPlayer(i, true);
+    }
+
+  }
+
+  function fastForward() {
+    audioPlayer.ref.current.currentTime = 9999;
+  }
+
+  const renderedAudioPlayer = (
+    <AudioPlayer
+      ref={audioPlayer.ref}
+      activeGenreData={activeGenreData}
+      audioPlayer={audioPlayer}
+      triggerAudioPlayerOnEnded={triggerAudioPlayerOnEnded}
+    />
+  );
 
   return (
     <div>
       {aboutToggle && <About setAboutToggle={setAboutToggle} />}
-      {!aboutToggle && (
-        <div className="brand">
-          <div className="font-size-48">
-            MusicMap
-            <Tooltip
-              title={<div className="custom-tooltip-black">Refresh Map</div>}
-            >
-              <IconButton
-                onClick={(e) => {
-                  e.preventDefault();
-                  setData(getNewMusicMap(initialData));
-                }}
-              >
-                <RefreshIcon style={{ color: "white" }} />
-              </IconButton>
-            </Tooltip>
-          </div>
-          by Vincent Tieu
-          <Tooltip
-            title={<div className="custom-tooltip-black">Read Details</div>}
-          >
-            <IconButton
-              onClick={(e) => {
-                e.preventDefault();
-                setAboutToggle(!aboutToggle);
-              }}
-            >
-              <MenuBookIcon fontSize="small" style={{ color: "white" }} />
-            </IconButton>
-          </Tooltip>
-        </div>
-      )}
+      {!aboutToggle && <MainMenu setAboutToggle={setAboutToggle} refreshMap={refreshMap} />}
+      {/* conditional className because component should remain rendered during aboutToggle */}
       <div className={aboutToggle ? "audio-player hidden" : "audio-player"}>
-        {audioPlayerGenre !== "" ? (
-          <div>
-            <div className="font-size-20">
-              Genre: {printReadableString(audioPlayerGenre)}
-            </div>
-            <br />
-            <AudioPlayer
-              ref={audioPlayer}
-              audioPlayerKey={audioPlayerKey}
-              audioPlayerGenre={audioPlayerGenre}
-              audioPlayerUrl={audioPlayerUrl}
-              onShuffle={onShuffle}
-              checkOnShuffle={checkOnShuffle}
-            />
-            <br />
-            <div>
-              <Tooltip
-                title={
-                  <div className="custom-tooltip-black">
-                    Search for Playlist on Spotify
-                  </div>
-                }
-                style={{ marginTop: "3px" }}
-              >
-                <IconButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(
-                      `https://open.spotify.com/search/the%20sound%20of%20${audioPlayerGenre.replace(
-                        / /g,
-                        "%20"
-                      )}`,
-                      "_blank" // <- This is what makes it open in a new window.
-                    );
-                  }}
-                >
-                  <SearchIcon style={{ color: "white" }} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title={<div className="custom-tooltip-black">Shuffle</div>}
-              >
-                <IconButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (!onShuffle) {
-                      const i = Math.floor(Math.random() * NODES_ON_MAP);
-                      togglePlay(i);
-                    }
-                    setOnShuffle(!onShuffle);
-                  }}
-                >
-                  {onShuffle ? (
-                    <RepeatIcon style={{ color: "green" }} />
-                  ) : (
-                    <RepeatIcon style={{ color: "white" }} />
-                  )}
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title={<div className="custom-tooltip-black">Forward</div>}
-              >
-                <IconButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    audioPlayer.current.currentTime = 30;
-                  }}
-                >
-                  <FastForwardIcon style={{ color: "white" }} />
-                </IconButton>
-              </Tooltip>
-            </div>
-          </div>
-        ) : (
-          <div className="font-size-32">
-            <div>Drag/Zoom to Navigate</div>
-            <div>Click to Listen!</div>
-          </div>
-        )}
+        <AudioPlayerMenu activeGenreData={activeGenreData} audioPlayer={audioPlayer} shuffle={shuffle} fastForward={fastForward} renderedAudioPlayer={renderedAudioPlayer} />
       </div>
       <MusicMap
-        data={data}
-        audioPlayerUrl={audioPlayerUrl}
-        togglePlay={togglePlay}
+        NGenresList={NGenresList}
+        activeGenreData={activeGenreData}
+        triggerAudioPlayer={triggerAudioPlayer}
       />
     </div>
   );
@@ -179,58 +105,21 @@ export default function App() {
 
 const AudioPlayer = forwardRef((props, ref) => {
   const {
-    audioPlayerKey,
-    audioPlayerGenre,
-    audioPlayerUrl,
-    onShuffle,
-    checkOnShuffle,
+    activeGenreData,
+    audioPlayer,
+    triggerAudioPlayerOnEnded,
   } = props;
   useEffect(() => {
     if (ref) {
-      if (!isTouchDevice() || onShuffle) {
+      if (!isTouchDevice() || audioPlayer.isShuffle) {
         ref.current.play();
       }
       ref.current.volume = 0.15;
     }
-  }, [ref, audioPlayerGenre, onShuffle]);
-
+  }, [ref, activeGenreData, audioPlayer]);
   return (
-    <audio ref={ref} key={audioPlayerKey} controls onEnded={checkOnShuffle}>
-      <source src={audioPlayerUrl} />
+    <audio ref={ref} key={audioPlayer.key} controls onEnded={triggerAudioPlayerOnEnded}>
+      <source src={activeGenreData.url} />
     </audio>
   );
 });
-
-function getNewMusicMap(arr) {
-  var n = NODES_ON_MAP,
-    result = new Array(n),
-    len = arr.length,
-    taken = new Array(len);
-  if (n > len)
-    throw new RangeError("getRandom: more elements taken than available");
-  while (n--) {
-    var x = Math.floor(Math.random() * len);
-    result[n] = arr[x in taken ? taken[x] : x];
-    taken[x] = --len in taken ? taken[len] : len;
-  }
-  return result;
-}
-
-function printReadableString(str) {
-  const words = str.split(" ");
-  const result = words
-    .map((word) => {
-      return word[0].toUpperCase() + word.substring(1);
-    })
-    .join(" ");
-
-  return result;
-}
-
-function isTouchDevice() {
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    navigator.msMaxTouchPoints > 0
-  );
-}
