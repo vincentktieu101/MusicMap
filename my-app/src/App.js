@@ -135,9 +135,7 @@ const AudioPlayer = forwardRef((props, ref) => {
   const { activeGenreData, audioPlayer, triggerAudioPlayerOnEnded } = props;
   useEffect(() => {
     if (ref) {
-      if (!isTouchDevice() || audioPlayer.isShuffle) {
-        ref.current.play();
-      }
+      ref.current.play();
       ref.current.volume = 0.15;
     }
   }, [ref, activeGenreData, audioPlayer]);
