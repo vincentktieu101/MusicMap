@@ -1,7 +1,7 @@
 # MusicMap
 <img width="1440" alt="Screen Shot 2021-03-20 at 5 40 49 PM" src="https://user-images.githubusercontent.com/46038043/111890070-70cba180-89a3-11eb-8cfc-18f1f3fb6965.png">
 
-MusicMap is a visual way to explore 5,000+ genres and over 500,000 songs!
+MusicMap is a visual way to explore 5,000+ genres and over 500,000+ songs!
 Scroll to zoom and click to drag across the map. Once you're ready, select a genre
 and listen to 30 second samples of that genre.
 
