@@ -44,7 +44,7 @@ export default function About(props) {
           <br />
           <div>
             Other actions you can perform are to refresh the map, search for
-            genre playlist on Spotify, shuffle random genres, and skip your
+            genre playlist on Spotify, shuffle random genres, and skip 
             current sample. Refreshing provides 400 new genres on your map.
             Shuffle random genre changes the genre after each sample. There are
             100+ unique samples for each genre.

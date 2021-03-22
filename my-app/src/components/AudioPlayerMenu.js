@@ -72,7 +72,7 @@ export default function AudioPlayerMenu(props) {
             <Tooltip
               title={
                 <div className="custom-tooltip-black">
-                  Forward to Next Sample
+                  Skip Current Sample
                 </div>
               }
             >
