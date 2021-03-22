@@ -21,7 +21,7 @@ export default function MusicMap(props) {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="custom-tooltip">
+        <div className="custom-tooltip font-size-24">
           {`Genre: ${printReadableString(tooltipContent)}`}
         </div>
       );
@@ -38,12 +38,7 @@ export default function MusicMap(props) {
         key={`cell-${NGenresList[i].genre}`}
         fill={NGenresList[i].color}
         stroke={NGenresList[i].color}
-        strokeWidth={
-          activeGenreData.url ===
-          `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[0]}`
-            ? 25
-            : 8
-        }
+        strokeWidth={activeGenreData.genre === NGenresList[i].genre ? 25 : 8}
       />
     );
   }

@@ -15,62 +15,82 @@ export default function App() {
   );
   const [aboutToggle, setAboutToggle] = useState(false);
   const [activeGenreData, setActiveGenreData] = useState({
-    "key": 0,
-    "genre": "",
-    "url": "",
-    "color": "",
-    "top": 0,
-    "left": 0,
+    key: 0,
+    genre: "",
+    activeUrl: "",
+    color: "",
+    top: 0,
+    left: 0,
+    preview_urls: [],
   });
   const [audioPlayer, setAudioPlayer] = useState({
-    "ref": useRef(),
-    "key": 0,
-    "isShuffle": false,
+    ref: useRef(),
+    key: 0,
+    isShuffle: false,
   });
 
-  function triggerAudioPlayer(i, shuffle=false) {
-    const url = NGenresList[i].preview_urls[0];
-    if (activeGenreData.url === `https://p.scdn.co/mp3-preview/${url}`) {
+  function triggerAudioPlayer(i) {
+    if (activeGenreData.genre === NGenresList[i].genre) {
       if (audioPlayer.ref.current.paused) {
         audioPlayer.ref.current.play();
       } else {
         audioPlayer.ref.current.pause();
       }
     } else {
-      let newActiveGenreData = { ...NGenresList[i]};
-      newActiveGenreData.url = `https://p.scdn.co/mp3-preview/${url}`;
+      let newActiveGenreData = { ...NGenresList[i] };
+      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
+      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[j]}`;
       setActiveGenreData(newActiveGenreData);
       let newAudioPlayer = { ...audioPlayer };
       newAudioPlayer.key += 1;
-      if (shuffle === true) {
-        newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
-      }
       setAudioPlayer(newAudioPlayer);
     }
   }
 
   function refreshMap() {
-    setNGenresList(
-      reduceNList(allGenresList, NGenresList.length)
-    );
+    setNGenresList(reduceNList(allGenresList, NGenresList.length));
   }
 
   function triggerAudioPlayerOnEnded() {
     if (audioPlayer.isShuffle) {
       const i = Math.floor(Math.random() * NGenresList.length);
-      triggerAudioPlayer(i);
+      let newActiveGenreData = { ...NGenresList[i] };
+      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
+      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[j]}`;
+      setActiveGenreData(newActiveGenreData);
+
+      let newAudioPlayer = { ...audioPlayer };
+      newAudioPlayer.key += 1;
+      setAudioPlayer(newAudioPlayer);
+    } else {
+      let newActiveGenreData = { ...activeGenreData };
+      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
+      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${activeGenreData.preview_urls[j]}`;
+      setActiveGenreData(newActiveGenreData);
+
+      let newAudioPlayer = { ...audioPlayer };
+      newAudioPlayer.key += 1;
+      setAudioPlayer(newAudioPlayer);
     }
   }
 
   function shuffle() {
-    // let newAudioPlayer = {...audioPlayer};
-    // newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
-    // setAudioPlayer(newAudioPlayer);
     if (!audioPlayer.isShuffle) {
       const i = Math.floor(Math.random() * NGenresList.length);
-      triggerAudioPlayer(i, true);
-    }
+      let newActiveGenreData = { ...NGenresList[i] };
+      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
+      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[j]}`;
+      setActiveGenreData(newActiveGenreData);
 
+      let newAudioPlayer = { ...audioPlayer };
+      newAudioPlayer.key += 1;
+      newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
+      setAudioPlayer(newAudioPlayer);
+    } else {
+      let newAudioPlayer = { ...audioPlayer };
+      newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
+      setAudioPlayer(newAudioPlayer);
+    }
   }
 
   function fastForward() {
@@ -89,10 +109,18 @@ export default function App() {
   return (
     <div>
       {aboutToggle && <About setAboutToggle={setAboutToggle} />}
-      {!aboutToggle && <MainMenu setAboutToggle={setAboutToggle} refreshMap={refreshMap} />}
+      {!aboutToggle && (
+        <MainMenu setAboutToggle={setAboutToggle} refreshMap={refreshMap} />
+      )}
       {/* conditional className because component should remain rendered during aboutToggle */}
       <div className={aboutToggle ? "audio-player hidden" : "audio-player"}>
-        <AudioPlayerMenu activeGenreData={activeGenreData} audioPlayer={audioPlayer} shuffle={shuffle} fastForward={fastForward} renderedAudioPlayer={renderedAudioPlayer} />
+        <AudioPlayerMenu
+          activeGenreData={activeGenreData}
+          audioPlayer={audioPlayer}
+          shuffle={shuffle}
+          fastForward={fastForward}
+          renderedAudioPlayer={renderedAudioPlayer}
+        />
       </div>
       <MusicMap
         NGenresList={NGenresList}
@@ -104,11 +132,7 @@ export default function App() {
 }
 
 const AudioPlayer = forwardRef((props, ref) => {
-  const {
-    activeGenreData,
-    audioPlayer,
-    triggerAudioPlayerOnEnded,
-  } = props;
+  const { activeGenreData, audioPlayer, triggerAudioPlayerOnEnded } = props;
   useEffect(() => {
     if (ref) {
       if (!isTouchDevice() || audioPlayer.isShuffle) {
@@ -118,8 +142,13 @@ const AudioPlayer = forwardRef((props, ref) => {
     }
   }, [ref, activeGenreData, audioPlayer]);
   return (
-    <audio ref={ref} key={audioPlayer.key} controls onEnded={triggerAudioPlayerOnEnded}>
-      <source src={activeGenreData.url} />
+    <audio
+      ref={ref}
+      key={audioPlayer.key}
+      controls
+      onEnded={triggerAudioPlayerOnEnded}
+    >
+      <source src={activeGenreData.activeUrl} />
     </audio>
   );
 });
