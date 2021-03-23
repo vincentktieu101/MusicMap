@@ -50,7 +50,6 @@ export default function SearchBar(props) {
           <Autocomplete
             filterOptions={filterOptions}
             options={allGenresList}
-            disableCloseOnSelect
             getOptionLabel={(option) => option.genre}
             renderOption={(option) => (
               <div
