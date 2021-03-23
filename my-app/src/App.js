@@ -178,8 +178,10 @@ const AudioPlayer = forwardRef((props, ref) => {
   const { activeGenreData, audioPlayer, triggerAudioPlayerOnEnded } = props;
   useEffect(() => {
     if (ref) {
-      ref.current.play();
       ref.current.volume = 0.15;
+    }
+    if (!audioPlayer.beastMode) {
+      ref.current.play();
     }
   }, [ref, activeGenreData, audioPlayer]);
   return (
