@@ -74,7 +74,7 @@ export default function SearchBar(props) {
                   fontSize: "32px",
                 }}
                 label="Genre"
-                onChange={(e) => {
+                onKeyDown={(e) => {
                   setSearchValue(e.target.value);
                 }}
               />
