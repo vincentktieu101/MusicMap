@@ -32,6 +32,15 @@ export default function App() {
     beastMode: false,
   });
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (audioPlayer.beastMode) {
+        refreshMap();
+      }
+    }, 1500);
+    return () => clearInterval(interval);
+  }, [audioPlayer]);
+
   function triggerAudioPlayer(i, absolute=false) {
     if (absolute) {
       let newActiveGenreData = { ...allGenresList[i] };
@@ -65,10 +74,6 @@ export default function App() {
     setNGenresList(reduceNList(allGenresList, NGenresList.length));
   }
 
-  if (audioPlayer.beastMode) {
-    setTimeout(() => refreshMap(), 2000);
-  }
-
   function triggerAudioPlayerOnEnded() {
     if (audioPlayer.isShuffle) {
       const i = Math.floor(Math.random() * NGenresList.length);
@@ -94,7 +99,6 @@ export default function App() {
 
   function beastModeToggle() {
     let newAudioPlayer = { ...audioPlayer };
-    // newAudioPlayer.key += 1;
     newAudioPlayer.beastMode = !newAudioPlayer.beastMode;
     setAudioPlayer(newAudioPlayer);
   }
@@ -118,7 +122,7 @@ export default function App() {
     }
   }
 
-  function fastForward() {
+  function skip() {
     triggerAudioPlayerOnEnded();
   }
 
@@ -154,7 +158,7 @@ export default function App() {
           activeGenreData={activeGenreData}
           audioPlayer={audioPlayer}
           shuffle={shuffle}
-          fastForward={fastForward}
+          skip={skip}
           setSearchToggle={setSearchToggle}
           beastModeToggle={beastModeToggle}
           renderedAudioPlayer={renderedAudioPlayer}

@@ -20,7 +20,7 @@ export default function MusicMap(props) {
   let cells = [];
 
   const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
+    if (active && payload && payload.length && !audioPlayer.beastMode) {
       return (
         <div className="custom-tooltip font-size-24">
           {`Genre: ${printReadableString(tooltipContent)}`}

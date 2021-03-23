@@ -14,7 +14,7 @@ export default function AudioPlayerMenu(props) {
     activeGenreData,
     audioPlayer,
     shuffle,
-    fastForward,
+    skip,
     renderedAudioPlayer,
     setSearchToggle,
     beastModeToggle,
@@ -101,7 +101,7 @@ export default function AudioPlayerMenu(props) {
               <IconButton
                 onClick={(e) => {
                   e.preventDefault();
-                  fastForward();
+                  skip();
                 }}
               >
                 <FastForwardIcon style={{ color: "white" }} />
