@@ -31,7 +31,7 @@ export default function App() {
     isShuffle: false,
   });
 
-  function triggerAudioPlayer(i, absolute = false) {
+  function triggerAudioPlayer(i, absolute=false) {
     if (absolute) {
       let newActiveGenreData = { ...allGenresList[i] };
       let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
@@ -42,7 +42,7 @@ export default function App() {
       setAudioPlayer(newAudioPlayer);
       return;
     }
-
+    
     if (activeGenreData.genre === NGenresList[i].genre) {
       if (audioPlayer.ref.current.paused) {
         audioPlayer.ref.current.play();
