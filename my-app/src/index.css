@@ -76,7 +76,7 @@ code {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .audio-player {
     top: auto;
     bottom: 10px;

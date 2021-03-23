@@ -135,7 +135,7 @@ export default function App() {
       {/* conditional className because component should remain rendered during aboutToggle */}
       <div
         className={
-          aboutToggle || searchToggle ? "audio-player hidden" : "audio-player"
+          aboutToggle ? "audio-player hidden" : "audio-player"
         }
       >
         <AudioPlayerMenu

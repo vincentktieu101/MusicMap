@@ -33,7 +33,7 @@ export default function SearchBar(props) {
       <div
         style={{
           backgroundColor: "white",
-          width: "80%",
+          width: "400px",
           padding: "4px",
           margin: "4px",
         }}
