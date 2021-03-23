@@ -1,16 +1,19 @@
+import { useRef } from "react";
+
 export default function About(props) {
   const { setAboutToggle } = props;
+  const background = useRef();
   return (
-    <div>
-      <div className="about-background" />
-      <div
-        className="about"
-        onClick={(e) => {
-          if (!e.target.href) {
-            setAboutToggle(false);
-          }
-        }}
-      >
+    <div
+      className="about"
+      onClick={(e) => {
+        if (e.target === background.current) {
+          setAboutToggle(false);
+        }
+      }}
+    >
+      <div className="background" ref={background} />
+      <div className="about-description">
         <div className="font-size-64">MusicMap</div>
         <div>by Vincent Tieu</div>
         <br />
@@ -22,7 +25,6 @@ export default function About(props) {
           https://github.com/vincentktieu101/MusicMap
         </a>
         <div className="width-500-less">
-          <br />
           <br />
           <br />
           <div>

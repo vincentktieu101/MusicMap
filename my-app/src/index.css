@@ -84,22 +84,22 @@ code {
   }
 }
 
-.about-background {
+.background {
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 2;
+  z-index: -1;
   background-color: #272727;
   opacity: 0.6;
 }
 
-.about {
+.about, .search {
   width: 100%;
   height: 100%;
   position: fixed;
   color: white;
   opacity: none;
-  z-index: 3;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,6 +109,14 @@ code {
   animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+}
+
+.about-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  overflow-y: auto;
 }
 
 @keyframes fadeInAnimation {

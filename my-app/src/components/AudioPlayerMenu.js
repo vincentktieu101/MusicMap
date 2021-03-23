@@ -3,6 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import SearchIcon from "@material-ui/icons/Search";
 import FastForwardIcon from "@material-ui/icons/FastForward";
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 
 import { printReadableString } from "../utils";
 
@@ -13,6 +14,7 @@ export default function AudioPlayerMenu(props) {
     shuffle,
     fastForward,
     renderedAudioPlayer,
+    setSearchToggle,
   } = props;
 
   return (
@@ -26,13 +28,28 @@ export default function AudioPlayerMenu(props) {
           {renderedAudioPlayer}
           <br />
           <div>
+          <Tooltip
+              title={
+                <div className="custom-tooltip-black">
+                  Search
+                </div>
+              }
+            >
+              <IconButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSearchToggle(true);
+                }}
+              >
+                <SearchIcon style={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
             <Tooltip
               title={
                 <div className="custom-tooltip-black">
                   Search for Genre Playlist on Spotify
                 </div>
               }
-              style={{ marginTop: "3px" }}
             >
               <IconButton
                 onClick={(e) => {
@@ -46,7 +63,7 @@ export default function AudioPlayerMenu(props) {
                   );
                 }}
               >
-                <SearchIcon style={{ color: "white" }} />
+                <LibraryMusicIcon style={{ color: "white" }} />
               </IconButton>
             </Tooltip>
             <Tooltip
