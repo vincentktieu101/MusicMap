@@ -43,7 +43,6 @@ export default function SearchBar(props) {
             e.preventDefault();
             if (genreDict[searchValue] !== undefined) {
               triggerAudioPlayer(genreDict[searchValue], true);
-              setSearchToggle(false);
             }
           }}
         >
@@ -57,7 +56,6 @@ export default function SearchBar(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   triggerAudioPlayer(option.key, true);
-                  setSearchToggle(false);
                 }}
               >
                 {option.genre}
