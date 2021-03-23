@@ -2,11 +2,12 @@ import { useState, useEffect, useRef, forwardRef } from "react";
 
 // import allGenresList from "./everynoise/db.json";
 import allGenresList from "./everynoise/all-genres-list.json";
-import { reduceNList, isTouchDevice } from "./utils";
+import { reduceNList } from "./utils";
 import About from "./components/About";
 import MainMenu from "./components/MainMenu";
 import AudioPlayerMenu from "./components/AudioPlayerMenu";
 import MusicMap from "./components/MusicMap";
+import SearchBar from "./components/SearchBar";
 
 export default function App() {
   const NODES_ON_MAP = 400;
@@ -14,6 +15,7 @@ export default function App() {
     reduceNList(allGenresList, NODES_ON_MAP)
   );
   const [aboutToggle, setAboutToggle] = useState(false);
+  const [searchToggle, setSearchToggle] = useState(false);
   const [activeGenreData, setActiveGenreData] = useState({
     key: 0,
     genre: "",
@@ -29,7 +31,18 @@ export default function App() {
     isShuffle: false,
   });
 
-  function triggerAudioPlayer(i) {
+  function triggerAudioPlayer(i, absolute = false) {
+    if (absolute) {
+      let newActiveGenreData = { ...allGenresList[i] };
+      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
+      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${newActiveGenreData.preview_urls[j]}`;
+      setActiveGenreData(newActiveGenreData);
+      let newAudioPlayer = { ...audioPlayer };
+      newAudioPlayer.key += 1;
+      setAudioPlayer(newAudioPlayer);
+      return;
+    }
+
     if (activeGenreData.genre === NGenresList[i].genre) {
       if (audioPlayer.ref.current.paused) {
         audioPlayer.ref.current.play();
@@ -39,7 +52,7 @@ export default function App() {
     } else {
       let newActiveGenreData = { ...NGenresList[i] };
       let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
-      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[j]}`;
+      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${newActiveGenreData.preview_urls[j]}`;
       setActiveGenreData(newActiveGenreData);
       let newAudioPlayer = { ...audioPlayer };
       newAudioPlayer.key += 1;
@@ -94,7 +107,7 @@ export default function App() {
   }
 
   function fastForward() {
-    audioPlayer.ref.current.currentTime = 9999;
+    triggerAudioPlayerOnEnded();
   }
 
   const renderedAudioPlayer = (
@@ -109,16 +122,28 @@ export default function App() {
   return (
     <div>
       {aboutToggle && <About setAboutToggle={setAboutToggle} />}
-      {!aboutToggle && (
+      {searchToggle && (
+        <SearchBar
+          className="hidden"
+          setSearchToggle={setSearchToggle}
+          triggerAudioPlayer={triggerAudioPlayer}
+        />
+      )}
+      {!(aboutToggle || searchToggle) && (
         <MainMenu setAboutToggle={setAboutToggle} refreshMap={refreshMap} />
       )}
       {/* conditional className because component should remain rendered during aboutToggle */}
-      <div className={aboutToggle ? "audio-player hidden" : "audio-player"}>
+      <div
+        className={
+          aboutToggle || searchToggle ? "audio-player hidden" : "audio-player"
+        }
+      >
         <AudioPlayerMenu
           activeGenreData={activeGenreData}
           audioPlayer={audioPlayer}
           shuffle={shuffle}
           fastForward={fastForward}
+          setSearchToggle={setSearchToggle}
           renderedAudioPlayer={renderedAudioPlayer}
         />
       </div>

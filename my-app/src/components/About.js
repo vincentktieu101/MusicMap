@@ -1,16 +1,19 @@
+import { useRef } from "react";
+
 export default function About(props) {
   const { setAboutToggle } = props;
+  const background = useRef();
   return (
-    <div>
-      <div className="about-background" />
-      <div
-        className="about"
-        onClick={(e) => {
-          if (!e.target.href) {
-            setAboutToggle(false);
-          }
-        }}
-      >
+    <div
+      className="about"
+      onClick={(e) => {
+        if (e.target === background.current) {
+          setAboutToggle(false);
+        }
+      }}
+    >
+      <div className="background" ref={background} />
+      <div className="about-description">
         <div className="font-size-64">MusicMap</div>
         <div>by Vincent Tieu</div>
         <br />
@@ -22,7 +25,6 @@ export default function About(props) {
           https://github.com/vincentktieu101/MusicMap
         </a>
         <div className="width-500-less">
-          <br />
           <br />
           <br />
           <div>
@@ -44,10 +46,10 @@ export default function About(props) {
           <br />
           <div>
             Other actions you can perform are to refresh the map, search for
-            genre playlist on Spotify, shuffle random genres, and skip 
-            current sample. Refreshing provides 400 new genres on your map.
-            Shuffle random genre changes the genre after each sample. There are
-            100+ unique samples for each genre.
+            genre playlist on Spotify, shuffle random genres, and skip current
+            sample. Refreshing provides 400 new genres on your map. Shuffle
+            random genre changes the genre after each sample. There are 100+
+            unique samples for each genre.
           </div>
           <br />
           <br />
