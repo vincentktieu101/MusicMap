@@ -36,6 +36,7 @@ export default function SearchBar(props) {
           width: "400px",
           padding: "4px",
           margin: "4px",
+          marginTop: "30px"
         }}
       >
         <form
@@ -49,6 +50,7 @@ export default function SearchBar(props) {
           <Autocomplete
             filterOptions={filterOptions}
             options={allGenresList}
+            disableCloseOnSelect
             getOptionLabel={(option) => option.genre}
             renderOption={(option) => (
               <div

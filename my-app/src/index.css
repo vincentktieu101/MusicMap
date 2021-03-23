@@ -104,7 +104,6 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
   overflow-y: auto;
 
   animation: fadeInAnimation ease 1s;
