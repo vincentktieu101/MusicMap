@@ -13,7 +13,8 @@ import { MapInteractionCSS } from "react-map-interaction";
 import { printReadableString } from "../utils";
 
 export default function MusicMap(props) {
-  const { NGenresList, activeGenreData, triggerAudioPlayer } = props;
+  const { activeGenreData, triggerAudioPlayer, audioPlayer } = props;
+  let { NGenresList } = props;
   const [tooltipContent, setTooltipContent] = useState("");
 
   let cells = [];
@@ -29,18 +30,32 @@ export default function MusicMap(props) {
     return null;
   };
 
-  for (let i = 0; i < NGenresList.length; i++) {
-    cells.push(
-      <Cell
-        onMouseOver={() => setTooltipContent(NGenresList[i].genre)}
-        onClick={() => triggerAudioPlayer(i)}
-        onTouchStart={() => triggerAudioPlayer(i)}
-        key={`cell-${NGenresList[i].genre}`}
-        fill={NGenresList[i].color}
-        stroke={NGenresList[i].color}
-        strokeWidth={activeGenreData.genre === NGenresList[i].genre ? 25 : 8}
-      />
-    );
+  if (!audioPlayer.beastMode) {
+    for (let i = 0; i < NGenresList.length; i++) {
+      cells.push(
+        <Cell
+          onMouseOver={() => setTooltipContent(NGenresList[i].genre)}
+          onClick={() => triggerAudioPlayer(i)}
+          onTouchStart={() => triggerAudioPlayer(i)}
+          key={`cell-${NGenresList[i].genre}`}
+          fill={NGenresList[i].color}
+          stroke={NGenresList[i].color}
+          strokeWidth={activeGenreData.genre === NGenresList[i].genre ? 25 : 8}
+        />
+      );
+    }
+  } else {
+    NGenresList = NGenresList.slice(0, 200);
+    for (let i = 0; i < NGenresList.length; i++) {
+      cells.push(
+        <Cell
+          key={`cell-${NGenresList[i].genre}`}
+          fill={NGenresList[i].color}
+          stroke={NGenresList[i].color}
+          strokeWidth={8}
+        />
+      );
+    }
   }
 
   return (

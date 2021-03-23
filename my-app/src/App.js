@@ -29,6 +29,7 @@ export default function App() {
     ref: useRef(),
     key: 0,
     isShuffle: false,
+    beastMode: false,
   });
 
   function triggerAudioPlayer(i, absolute=false) {
@@ -64,6 +65,10 @@ export default function App() {
     setNGenresList(reduceNList(allGenresList, NGenresList.length));
   }
 
+  if (audioPlayer.beastMode) {
+    setTimeout(() => refreshMap(), 2000);
+  }
+
   function triggerAudioPlayerOnEnded() {
     if (audioPlayer.isShuffle) {
       const i = Math.floor(Math.random() * NGenresList.length);
@@ -85,6 +90,13 @@ export default function App() {
       newAudioPlayer.key += 1;
       setAudioPlayer(newAudioPlayer);
     }
+  }
+
+  function beastModeToggle() {
+    let newAudioPlayer = { ...audioPlayer };
+    // newAudioPlayer.key += 1;
+    newAudioPlayer.beastMode = !newAudioPlayer.beastMode;
+    setAudioPlayer(newAudioPlayer);
   }
 
   function shuffle() {
@@ -144,12 +156,14 @@ export default function App() {
           shuffle={shuffle}
           fastForward={fastForward}
           setSearchToggle={setSearchToggle}
+          beastModeToggle={beastModeToggle}
           renderedAudioPlayer={renderedAudioPlayer}
         />
       </div>
       <MusicMap
         NGenresList={NGenresList}
         activeGenreData={activeGenreData}
+        audioPlayer={audioPlayer}
         triggerAudioPlayer={triggerAudioPlayer}
       />
     </div>

@@ -4,6 +4,8 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import SearchIcon from "@material-ui/icons/Search";
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
 import { printReadableString } from "../utils";
 
@@ -15,6 +17,7 @@ export default function AudioPlayerMenu(props) {
     fastForward,
     renderedAudioPlayer,
     setSearchToggle,
+    beastModeToggle,
   } = props;
 
   return (
@@ -36,6 +39,16 @@ export default function AudioPlayerMenu(props) {
                 }}
               >
                 <SearchIcon style={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={<div className="custom-tooltip-black">Beast Mode</div>}>
+              <IconButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  beastModeToggle();
+                }}
+              >
+                {audioPlayer.beastMode ? <InsertEmoticonIcon style={{ color: "green" }}/> : <EmojiEmotionsIcon style={{ color: "white" }}/>}
               </IconButton>
             </Tooltip>
             <Tooltip
