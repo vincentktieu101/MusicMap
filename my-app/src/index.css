@@ -112,11 +112,7 @@ code {
 }
 
 .about-description {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding-top: 20px;
-  padding-right: 20px;
   overflow-y: auto;
 }
 

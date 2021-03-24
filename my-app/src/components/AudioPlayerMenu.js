@@ -4,8 +4,8 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import SearchIcon from "@material-ui/icons/Search";
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
 import { printReadableString } from "../utils";
 
@@ -40,17 +40,25 @@ export default function AudioPlayerMenu(props) {
                   setSearchToggle(true);
                 }}
               >
-                <SearchIcon style={searchToggle ? {color: "green"} : {color: "white"}} />
+                <SearchIcon
+                  style={searchToggle ? { color: "green" } : { color: "white" }}
+                />
               </IconButton>
             </Tooltip>
-            <Tooltip title={<div className="custom-tooltip-black">Dance Mode</div>}>
+            <Tooltip
+              title={<div className="custom-tooltip-black">Dance Mode</div>}
+            >
               <IconButton
                 onClick={(e) => {
                   e.preventDefault();
                   setBeastMode(!beastMode);
                 }}
               >
-                {beastMode ? <InsertEmoticonIcon style={{ color: "green" }}/> : <EmojiEmotionsIcon style={{ color: "white" }}/>}
+                {beastMode ? (
+                  <InsertEmoticonIcon style={{ color: "green" }} />
+                ) : (
+                  <EmojiEmotionsIcon style={{ color: "white" }} />
+                )}
               </IconButton>
             </Tooltip>
             <Tooltip
@@ -88,14 +96,16 @@ export default function AudioPlayerMenu(props) {
                   shuffle();
                 }}
               >
-                <RepeatIcon style={audioPlayer.isShuffle ? { color: "green" } : {color: "white"}} />
+                <RepeatIcon
+                  style={
+                    audioPlayer.isShuffle
+                      ? { color: "green" }
+                      : { color: "white" }
+                  }
+                />
               </IconButton>
             </Tooltip>
-            <Tooltip
-              title={
-                <div className="custom-tooltip-black">Skip</div>
-              }
-            >
+            <Tooltip title={<div className="custom-tooltip-black">Skip</div>}>
               <IconButton
                 onClick={(e) => {
                   e.preventDefault();
@@ -109,8 +119,8 @@ export default function AudioPlayerMenu(props) {
         </div>
       ) : (
         <div className="font-size-32">
-          <div>Drag/Zoom to Navigate</div>
-          <div>Click to Listen!</div>
+          <div>Each Circle is a Genre</div>
+          <div>Zoom/Drag to Navigate!</div>
         </div>
       )}
     </div>

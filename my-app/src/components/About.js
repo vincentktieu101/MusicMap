@@ -15,34 +15,32 @@ export default function About(props) {
       <div className="background" ref={background} />
       <div className="about-description">
         <div className="width-500-less">
-        <div className="font-size-64">MusicMap</div>
-        <div>by Vincent Tieu</div>
-        <br />
-        <a
-          href="https://github.com/vincentktieu101/MusicMap"
-          target="_blank"
-          rel="noreferrer"
-        >
-          https://github.com/vincentktieu101/
-          MusicMap
-        </a>
+          <div className="font-size-64">MusicMap</div>
+          <div>by Vincent Tieu</div>
+          <br />
+          <a
+            href="https://github.com/vincentktieu101/MusicMap"
+            target="_blank"
+            rel="noreferrer"
+          >
+            https://github.com/vincentktieu101/ MusicMap
+          </a>
           <br />
           <br />
           <div>
-            MusicMap is a visual way to explore 5000+ genres and over 500,000
+            MusicMap is a visual way to explore 5,000+ genres and over 500,000
             songs! Scroll to zoom and click to drag across the map. Once you're
             ready, select a genre and listen to 30 second samples of that genre.
           </div>
           <br />
           <div>
             Generally, the type of genres are organized by color and location.
-            Blue describes instrumentals. Pink describes
-            electronic music/EDM. Orange genres are rock. Red genres are
-            metal. Green and Yellow genres describe everything from indie to
-            pop. Genres closer together sound similar while genres further away
-            sound less similar.
+            Blue describes instrumentals. Pink describes electronic music/EDM.
+            Orange genres are rock. Red genres are metal. Green and Yellow
+            genres describe everything from indie to pop. Genres closer together
+            sound similar while genres further away sound less similar.
           </div>
-          <br />  
+          <br />
           <div>Some other features...</div>
           <div>Refresh Map: Get a new map of 400 genres of the pool 5000+</div>
           <div>Search: Look for a specific genre within app</div>
@@ -63,9 +61,9 @@ export default function About(props) {
           </div>
           <br />
           <div>
-            Thanks so much for visiting my app! I hope you find this app as
-            fun as I did making it. I really can not understate
-            how much I appreciate it, especially as a budding web/software developer :)
+            Thanks so much for visiting my app! I hope you find this app as fun
+            as I did making it. I really can not understate how much I
+            appreciate it, especially as a budding web/software developer :)
           </div>
           <br />
           <div>App last updated 3/24/21</div>

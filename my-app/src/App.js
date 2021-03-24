@@ -41,7 +41,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, [beastMode]);
 
-  function triggerAudioPlayer(i, absolute=false) {
+  function triggerAudioPlayer(i, absolute = false) {
     if (absolute) {
       let newActiveGenreData = { ...allGenresList[i] };
       let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
@@ -52,7 +52,7 @@ export default function App() {
       setAudioPlayer(newAudioPlayer);
       return;
     }
-    
+
     if (activeGenreData.genre === NGenresList[i].genre) {
       if (audioPlayer.ref.current.paused) {
         audioPlayer.ref.current.play();
@@ -143,11 +143,7 @@ export default function App() {
         <MainMenu setAboutToggle={setAboutToggle} refreshMap={refreshMap} />
       )}
       {/* conditional className because component should remain rendered during aboutToggle */}
-      <div
-        className={
-          aboutToggle ? "audio-player hidden" : "audio-player"
-        }
-      >
+      <div className={aboutToggle ? "audio-player hidden" : "audio-player"}>
         <AudioPlayerMenu
           activeGenreData={activeGenreData}
           audioPlayer={audioPlayer}
