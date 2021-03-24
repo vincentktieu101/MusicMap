@@ -45,7 +45,6 @@ export default function MusicMap(props) {
       );
     }
   } else {
-    NGenresList = NGenresList.slice(0, 200);
     for (let i = 0; i < NGenresList.length; i++) {
       cells.push(
         <Cell

@@ -33,10 +33,10 @@ export default function SearchBar(props) {
       <div
         style={{
           backgroundColor: "white",
-          width: "400px",
+          width: "350px",
           padding: "4px",
           margin: "4px",
-          marginTop: "30px"
+          marginTop: "20px"
         }}
       >
         <form

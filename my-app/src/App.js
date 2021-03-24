@@ -16,6 +16,7 @@ export default function App() {
   );
   const [aboutToggle, setAboutToggle] = useState(false);
   const [searchToggle, setSearchToggle] = useState(false);
+  const [beastMode, setBeastMode] = useState(false);
   const [activeGenreData, setActiveGenreData] = useState({
     key: 0,
     genre: "",
@@ -29,17 +30,16 @@ export default function App() {
     ref: useRef(),
     key: 0,
     isShuffle: false,
-    beastMode: false,
   });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (audioPlayer.beastMode) {
-        refreshMap();
+      if (beastMode) {
+        setNGenresList(reduceNList(allGenresList, NODES_ON_MAP));
       }
     }, 1500);
     return () => clearInterval(interval);
-  }, [audioPlayer]);
+  }, [beastMode]);
 
   function triggerAudioPlayer(i, absolute=false) {
     if (absolute) {
@@ -95,12 +95,6 @@ export default function App() {
       newAudioPlayer.key += 1;
       setAudioPlayer(newAudioPlayer);
     }
-  }
-
-  function beastModeToggle() {
-    let newAudioPlayer = { ...audioPlayer };
-    newAudioPlayer.beastMode = !newAudioPlayer.beastMode;
-    setAudioPlayer(newAudioPlayer);
   }
 
   function shuffle() {
@@ -159,8 +153,10 @@ export default function App() {
           audioPlayer={audioPlayer}
           shuffle={shuffle}
           skip={skip}
+          searchToggle={searchToggle}
           setSearchToggle={setSearchToggle}
-          beastModeToggle={beastModeToggle}
+          beastMode={beastMode}
+          setBeastMode={setBeastMode}
           renderedAudioPlayer={renderedAudioPlayer}
         />
       </div>
@@ -179,8 +175,6 @@ const AudioPlayer = forwardRef((props, ref) => {
   useEffect(() => {
     if (ref) {
       ref.current.volume = 0.15;
-    }
-    if (!audioPlayer.beastMode) {
       ref.current.play();
     }
   }, [ref, activeGenreData, audioPlayer]);
@@ -190,6 +184,7 @@ const AudioPlayer = forwardRef((props, ref) => {
       key={audioPlayer.key}
       controls
       onEnded={triggerAudioPlayerOnEnded}
+      onError={triggerAudioPlayerOnEnded}
     >
       <source src={activeGenreData.activeUrl} />
     </audio>

@@ -16,8 +16,10 @@ export default function AudioPlayerMenu(props) {
     shuffle,
     skip,
     renderedAudioPlayer,
+    searchToggle,
     setSearchToggle,
-    beastModeToggle,
+    beastMode,
+    setBeastMode,
   } = props;
 
   return (
@@ -38,17 +40,17 @@ export default function AudioPlayerMenu(props) {
                   setSearchToggle(true);
                 }}
               >
-                <SearchIcon style={{ color: "white" }} />
+                <SearchIcon style={searchToggle ? {color: "green"} : {color: "white"}} />
               </IconButton>
             </Tooltip>
-            <Tooltip title={<div className="custom-tooltip-black">Beast Mode</div>}>
+            <Tooltip title={<div className="custom-tooltip-black">Dance Mode</div>}>
               <IconButton
                 onClick={(e) => {
                   e.preventDefault();
-                  beastModeToggle();
+                  setBeastMode(!beastMode);
                 }}
               >
-                {audioPlayer.beastMode ? <InsertEmoticonIcon style={{ color: "green" }}/> : <EmojiEmotionsIcon style={{ color: "white" }}/>}
+                {beastMode ? <InsertEmoticonIcon style={{ color: "green" }}/> : <EmojiEmotionsIcon style={{ color: "white" }}/>}
               </IconButton>
             </Tooltip>
             <Tooltip
@@ -86,16 +88,12 @@ export default function AudioPlayerMenu(props) {
                   shuffle();
                 }}
               >
-                {audioPlayer.isShuffle ? (
-                  <RepeatIcon style={{ color: "green" }} />
-                ) : (
-                  <RepeatIcon style={{ color: "white" }} />
-                )}
+                <RepeatIcon style={audioPlayer.isShuffle ? { color: "green" } : {color: "white"}} />
               </IconButton>
             </Tooltip>
             <Tooltip
               title={
-                <div className="custom-tooltip-black">Skip Current Sample</div>
+                <div className="custom-tooltip-black">Skip</div>
               }
             >
               <IconButton
