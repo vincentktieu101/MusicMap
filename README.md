@@ -1,24 +1,32 @@
 # MusicMap
-<img width="1440" alt="Screen Shot 2021-03-23 at 2 17 54 AM" src="https://user-images.githubusercontent.com/46038043/112122948-03279d00-8b7e-11eb-8e15-b06276a9e798.png">
+<img width="1440" alt="Screen Shot 2021-03-24 at 2 57 30 AM" src="https://user-images.githubusercontent.com/46038043/112290765-c8d90100-8c4c-11eb-911c-725c58124e1d.png">
 
-MusicMap is a visual way to explore 5,000+ genres and over 500,000+ songs!
-Scroll to zoom and click to drag across the map. Once you're ready, select a genre
-and listen to 30 second samples of that genre.
+MusicMap is a visual way to explore 5,000+ genres and over 500,000
+songs! Scroll to zoom and click to drag across the map. Once you're
+ready, select a genre and listen to 30 second samples of that genre.
 
 Generally, the type of genres are organized by color and location.
-Blue genres are typically instrumentals. Pink genres describe
-electronic music/EDM. Orange genres are mainly rock. Red genres are
+Blue describes instrumentals. Pink describes
+electronic music/EDM. Orange genres are rock. Red genres are
 metal. Green and Yellow genres describe everything from indie to
 pop. Genres closer together sound similar while genres further away
 sound less similar.
 
-Other actions you can perform are to refresh the map, search for genre playlist on
-Spotify, shuffle random genres, and skip your current sample.
-Refreshing provides 400 new genres on your map. Shuffle random genre changes the genre
-after each sample. There are 100+ unique samples for each genre.
+Some other features...
+Refresh Map: Get a new map of 400 genres of the pool 5000+
+Search: Look for a specific genre within app
+Dance Mode: Makes the genre nodes dance!
+Spotify Search: Searches for specific genre on Spotify
+Shuffle Random Genre: Changes the genre after each sample
+Skip: Skips current sample
 
-MusicMap is built in ReactJS, Recharts, Material-UI, React-Map-Interaction. The data was
-gathered by using a scrapping tool on https://everynoise.com/. This app was designed primarily for 
-desktop but also works well on mobile :)
+MusicMap is built in ReactJS, Material-UI, Recharts, and
+React-Map-Interaction. The data was gathered by using a scrapping
+tool on https://everynoise.com/. This app was designed primarily for desktop but also 
+works well on mobile.
 
-<img width="1440" alt="Screen Shot 2021-03-23 at 2 19 23 AM" src="https://user-images.githubusercontent.com/46038043/112123137-3833ef80-8b7e-11eb-97ad-7e822c13b3ef.png">
+Thanks so much for visiting my app! I hope you find this app as
+fun as I did making it. I really can not understate
+how much I appreciate it, especially as a budding web/software developer :)
+
+<img width="1440" alt="Screen Shot 2021-03-24 at 2 57 58 AM" src="https://user-images.githubusercontent.com/46038043/112290796-cecee200-8c4c-11eb-9016-c1b292946380.png">
