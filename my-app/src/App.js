@@ -39,6 +39,10 @@ export default function App() {
     return () => clearInterval(interval);
   }, [beastMode]);
 
+  function refreshMap() {
+    setNGenresList(reduceNList(allGenresList, NGenresList.length));
+  }
+  
   function triggerAudioPlayer(i, absolute = false) {
     if (activeGenreData.genre === NGenresList[i].genre) {
       if (audioPlayer.ref.current.paused) {
@@ -51,40 +55,26 @@ export default function App() {
 
     let newActiveGenreData;
     if (absolute) {
-      newActiveGenreData = { ...allGenresList[i] };
+      newActiveGenreData = allGenresList[i];
     } else {
-      newActiveGenreData = { ...NGenresList[i] };
+      newActiveGenreData = NGenresList[i];
     }
     let j = Math.floor(Math.random() * newActiveGenreData.preview_urls.length);
     setActiveGenreData({ ...newActiveGenreData, activeUrl: `https://p.scdn.co/mp3-preview/${newActiveGenreData.preview_urls[j]}` });
     setAudioPlayer({ ...audioPlayer, key: audioPlayer.key+1 });
   }
 
-  function refreshMap() {
-    setNGenresList(reduceNList(allGenresList, NGenresList.length));
-  }
-
   function triggerAudioPlayerOnEnded() {
+    let newActiveGenreData;
     if (audioPlayer.isShuffle) {
       const i = Math.floor(Math.random() * NGenresList.length);
-      let newActiveGenreData = { ...NGenresList[i] };
-      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
-      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[j]}`;
-      setActiveGenreData(newActiveGenreData);
-
-      let newAudioPlayer = { ...audioPlayer };
-      newAudioPlayer.key += 1;
-      setAudioPlayer(newAudioPlayer);
+      newActiveGenreData = NGenresList[i];
     } else {
-      let newActiveGenreData = { ...activeGenreData };
-      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
-      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${activeGenreData.preview_urls[j]}`;
-      setActiveGenreData(newActiveGenreData);
-
-      let newAudioPlayer = { ...audioPlayer };
-      newAudioPlayer.key += 1;
-      setAudioPlayer(newAudioPlayer);
+      newActiveGenreData = activeGenreData;
     }
+    let j = Math.floor(Math.random() * newActiveGenreData.preview_urls.length);
+    setActiveGenreData({ ...newActiveGenreData, activeUrl: `https://p.scdn.co/mp3-preview/${newActiveGenreData.preview_urls[j]}`});
+    setAudioPlayer({ ...audioPlayer, key: audioPlayer.key+1 });
   }
 
   function shuffle() {
