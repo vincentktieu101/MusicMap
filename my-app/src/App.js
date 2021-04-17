@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, forwardRef } from "react";
 
-// import allGenresList from "./everynoise/db.json";
 import allGenresList from "./everynoise/all-genres-list.json";
 import { reduceNList } from "./utils";
 import About from "./components/About";
@@ -80,19 +79,11 @@ export default function App() {
   function shuffle() {
     if (!audioPlayer.isShuffle) {
       const i = Math.floor(Math.random() * NGenresList.length);
-      let newActiveGenreData = { ...NGenresList[i] };
-      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
-      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[j]}`;
-      setActiveGenreData(newActiveGenreData);
-
-      let newAudioPlayer = { ...audioPlayer };
-      newAudioPlayer.key += 1;
-      newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
-      setAudioPlayer(newAudioPlayer);
+      let j = Math.floor(Math.random() * NGenresList[i].preview_urls.length);
+      setActiveGenreData({ ...NGenresList[i], activeUrl: `https://p.scdn.co/mp3-preview/${NGenresList[i].preview_urls[j]}`});
+      setAudioPlayer({ ...audioPlayer, key: audioPlayer.key+1, isShuffle: !audioPlayer.isShuffle });
     } else {
-      let newAudioPlayer = { ...audioPlayer };
-      newAudioPlayer.isShuffle = !newAudioPlayer.isShuffle;
-      setAudioPlayer(newAudioPlayer);
+      setAudioPlayer({ ...audioPlayer, isShuffle: !audioPlayer.isShuffle });
     }
   }
 
