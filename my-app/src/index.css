@@ -51,10 +51,6 @@ code {
   left: 15px;
   z-index: 1;
   color: white;
-
-  animation: fadeInAnimation ease 1s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
 .audio-player {
@@ -85,8 +81,8 @@ code {
 }
 
 .background {
-  width: 100%;
-  height: 100%;
+  width: 100vh;
+  height: 100vh;
   position: fixed;
   z-index: -1;
   background-color: #272727;
@@ -104,25 +100,10 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
-
-  animation: fadeInAnimation ease 1s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
 .about-description {
   padding-top: 20px;
-  overflow-y: auto;
-}
-
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .custom-tooltip {

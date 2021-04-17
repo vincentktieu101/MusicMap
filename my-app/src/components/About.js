@@ -6,6 +6,7 @@ export default function About(props) {
   return (
     <div
       className="about"
+      style={{overflowY: "auto"}}
       onClick={(e) => {
         if (e.target === background.current) {
           setAboutToggle(false);
