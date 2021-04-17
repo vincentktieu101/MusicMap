@@ -22,8 +22,6 @@ export default function App() {
     genre: "",
     activeUrl: "",
     color: "",
-    top: 0,
-    left: 0,
     preview_urls: [],
   });
   const [audioPlayer, setAudioPlayer] = useState({
@@ -42,32 +40,24 @@ export default function App() {
   }, [beastMode]);
 
   function triggerAudioPlayer(i, absolute = false) {
-    if (absolute) {
-      let newActiveGenreData = { ...allGenresList[i] };
-      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
-      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${newActiveGenreData.preview_urls[j]}`;
-      setActiveGenreData(newActiveGenreData);
-      let newAudioPlayer = { ...audioPlayer };
-      newAudioPlayer.key += 1;
-      setAudioPlayer(newAudioPlayer);
-      return;
-    }
-
     if (activeGenreData.genre === NGenresList[i].genre) {
       if (audioPlayer.ref.current.paused) {
         audioPlayer.ref.current.play();
       } else {
         audioPlayer.ref.current.pause();
       }
-    } else {
-      let newActiveGenreData = { ...NGenresList[i] };
-      let j = Math.floor(Math.random() * activeGenreData.preview_urls.length);
-      newActiveGenreData.activeUrl = `https://p.scdn.co/mp3-preview/${newActiveGenreData.preview_urls[j]}`;
-      setActiveGenreData(newActiveGenreData);
-      let newAudioPlayer = { ...audioPlayer };
-      newAudioPlayer.key += 1;
-      setAudioPlayer(newAudioPlayer);
+      return;
     }
+
+    let newActiveGenreData;
+    if (absolute) {
+      newActiveGenreData = { ...allGenresList[i] };
+    } else {
+      newActiveGenreData = { ...NGenresList[i] };
+    }
+    let j = Math.floor(Math.random() * newActiveGenreData.preview_urls.length);
+    setActiveGenreData({ ...newActiveGenreData, activeUrl: `https://p.scdn.co/mp3-preview/${newActiveGenreData.preview_urls[j]}` });
+    setAudioPlayer({ ...audioPlayer, key: audioPlayer.key+1 });
   }
 
   function refreshMap() {
