@@ -130,7 +130,7 @@ export default function App() {
       <MusicMap
         NGenresList={NGenresList}
         activeGenreData={activeGenreData}
-        audioPlayer={audioPlayer}
+        beastMode={beastMode}
         triggerAudioPlayer={triggerAudioPlayer}
       />
     </div>

@@ -13,14 +13,14 @@ import { MapInteractionCSS } from "react-map-interaction";
 import { printReadableString } from "../utils";
 
 export default function MusicMap(props) {
-  const { activeGenreData, triggerAudioPlayer, audioPlayer } = props;
+  const { activeGenreData, triggerAudioPlayer, beastMode } = props;
   let { NGenresList } = props;
   const [tooltipContent, setTooltipContent] = useState("");
 
   let cells = [];
 
   const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length && !audioPlayer.beastMode) {
+    if (active && payload && payload.length && !beastMode) {
       return (
         <div className="custom-tooltip font-size-24">
           {`Genre: ${printReadableString(tooltipContent)}`}
@@ -30,7 +30,7 @@ export default function MusicMap(props) {
     return null;
   };
 
-  if (!audioPlayer.beastMode) {
+  if (!beastMode) {
     for (let i = 0; i < NGenresList.length; i++) {
       cells.push(
         <Cell
