@@ -81,7 +81,7 @@ code {
 }
 
 .background {
-  width: 100vw;
+  width: 110%;
   height: 100vh;
   position: fixed;
   z-index: -1;

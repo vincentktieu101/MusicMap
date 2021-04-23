@@ -43,7 +43,7 @@ export default function App() {
   }
   
   function triggerAudioPlayer(i, absolute = false) {
-    if (activeGenreData.genre === NGenresList[i].genre) {
+    if (!absolute && activeGenreData && activeGenreData.genre === NGenresList[i].genre) {
       if (audioPlayer.ref.current.paused) {
         audioPlayer.ref.current.play();
       } else {
